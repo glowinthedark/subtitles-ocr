@@ -20,7 +20,7 @@ def generate_srt(json_input_file=None):
 
     for frame_number in sorted(ocr_dict.keys()):
 
-        frame_rate = 43 ######### TODO ########  change the video frame rate
+        frame_rate = 30 ######### TODO ########  change the video frame rate
         start_time: datetime.timedelta = datetime.timedelta(milliseconds=int(1000 * (float(frame_number) / 4 )))
         end_time = start_time + datetime.timedelta(milliseconds=500)
         body: str = ocr_dict.get(frame_number).strip()
