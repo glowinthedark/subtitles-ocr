@@ -55,10 +55,7 @@ def do_translate(args):
 
     input_text = input_file.read_text(encoding='utf-8')
 
-    # if len(input_text) > 1000:
     chunks = list(generate_chunks(input_text.split('\n'), chunk_size=args.chunk_size, src_lang=target_language))
-    # else:
-    #     chunks = [input_text]
 
     translated_chunks = []
 
@@ -99,10 +96,7 @@ RESPONSE: {response.text}
             raise Exception(f'Bad server response while processing {input_file.absolute()}')
 
         data = response.json()
-        # detected_source_language = data['translations'][0].get('detected_source_language')
-        # print(f'Detected source language {detected_source_language}')
-        #
-        #
+
         for translated_chunk in data['translations']:
             translated = translated_chunk.get('text')
             print(translated)
