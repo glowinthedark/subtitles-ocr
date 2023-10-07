@@ -12,3 +12,7 @@ The workflow sequence:
 5. Generate Chinese pinyin and traditional/simplified versions.
 6. Translate with deepl.
 7. Merge translation into the final SRT containing Hanzi Simplified + Hanzi Traditional + Pinyin + English.
+
+# NOTE
+
+- this is work in progress and not suitable for usage as-is; you'll need to adapt to your specific scenario
