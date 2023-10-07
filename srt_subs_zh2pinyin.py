@@ -7,8 +7,8 @@
 
 # URL: https://gist.github.com/glowinthedark/83daa9531dd8c4cc3963e55c1a4f3b1c
 # Add pinyin subtitles to chinese mandarin SRT subtitles;
-# optionally also add traditional (-t) or existing simplified;
-# or simplified (-s) to existing traditional
+# optionally append traditional (-t) to existing simplified;
+# or append simplified (-s) to existing traditional
 
 # Examples:
 # srt_subtitles_append_pinyin.py subtitles.chi.srt -o subtitles.chi.with.pinyin.srt
@@ -52,7 +52,6 @@ def put(lst, line):
     else:
         raise Exception('oh-oh')
 
-# https://stackoverflow.com/questions/30926840/how-to-check-change-between-two-values-in-percent/43034457#43034457
 def to_percent(a, b):
     if a == 0 and b == 0:
         return 100.0
