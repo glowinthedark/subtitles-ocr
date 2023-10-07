@@ -36,7 +36,7 @@ esac
 read -p "Start OCR (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
-        do-ocr.py "$1_img" "$1_results.json"
+        python3 do-ocr.py "$1_img" "$1_results.json"
     ;;
     * )
         echo Skipping...
@@ -47,7 +47,7 @@ esac
 read -p "Generate SRT (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
-        gensrt.py "$1_results.json" "$1.ocr.srt"
+        python3 gensrt.py "$1_results.json" "$1.ocr.srt"
     ;;
     * )
         echo Skipping...
@@ -78,7 +78,7 @@ esac
 read -p "Generate pinyin SRT (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
-        srt_subs_zh2pinyin.py "$1.ocr.srt" --force-normalize-input-to-simplified -t -o "$1.ocr.pinyin.srt"
+        python3 srt_subs_zh2pinyin.py "$1.ocr.srt" --force-normalize-input-to-simplified -t -o "$1.ocr.pinyin.srt"
     ;;
     * )
         echo Skipping...
@@ -99,7 +99,7 @@ esac
 read -p "SRT merge (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
-        srt_merge.py "$1.ocr.pinyin.srt" "$1.ocr.en.srt"
+        python3 srt_merge.py "$1.ocr.pinyin.srt" "$1.ocr.en.srt"
     ;;
     * )
         echo Skipping...
