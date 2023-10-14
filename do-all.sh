@@ -24,8 +24,9 @@ esac
 read -p "Generate snapshots (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
+        rm -rfv "$1_img"
         mkdir -p "$1_img"
-        ffmpeg -i "$1_video-cropped.mp4" -start_number 1 -vf "fps=4" -q:v 2 "$1_img/snap_%04d.png"
+        ffmpeg -i "$1_video-cropped.mp4" -start_number 1 -vf "fps=1" -q:v 2 "$1_img/snap_%04d.png"
 # PREV        ffmpeg -i "$1_video-cropped.mp4" -vf "fps=4" -q:v 2 "$1_img/snap_%d.png"
     ;;
     * )
@@ -36,6 +37,7 @@ esac
 read -p "Start OCR (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
+        rm -rf -v "$1_results.json"
         python3 do-ocr.py "$1_img" "$1_results.json"
     ;;
     * )
@@ -47,6 +49,7 @@ esac
 read -p "Generate SRT (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
+        rm "$1.ocr.srt"
         python3 gensrt.py "$1_results.json" "$1.ocr.srt"
     ;;
     * )
@@ -58,17 +61,6 @@ read -p "SRT normalize and deduplicate inplace (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
       srt-normalise -i "$1.ocr.srt" --inplace --debug
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 10000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 40000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 50000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 60000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 70000 --debug -i "$1.ocr.srt" --inplace
-      srt-deduplicate -t 80000 --debug -i "$1.ocr.srt" --inplace
     ;;
     * )
         echo Skipping...
