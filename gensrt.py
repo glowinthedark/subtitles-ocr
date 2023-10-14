@@ -13,22 +13,43 @@ def generate_srt(json_input_file=None):
     with open(json_input_file, "r") as f:
         ocr_dict: dict = json.load(f)
 
-    # the subtitle index, and a start time to keep track of the subtitle start time
     subtitles = []
-    counter = 1
     start_time = datetime.timedelta()
+
+    sorted_int_keys = sorted([int(k) for k in ocr_dict.keys()])
+
+    current_sub: srt.Subtitle = None
 
     for frame_number in sorted(ocr_dict.keys()):
 
-        frame_rate = 30 ######### TODO ########  change the video frame rate
         start_time: datetime.timedelta = datetime.timedelta(milliseconds=int(1000 * (float(frame_number) / 4 )))
         end_time = start_time + datetime.timedelta(milliseconds=500)
-        body: str = ocr_dict.get(frame_number).strip()
+        body: str = ocr_dict.get(str(frame_number)).strip()
 
         if body:
-            subtitles.append(srt.Subtitle(None, start_time, end_time, body))
-            print(counter, start_time, end_time, body)
-            counter += 1
+            start_time: datetime.timedelta = datetime.timedelta(seconds=frame_number)
+            end_time = start_time + datetime.timedelta(milliseconds=1000)
+
+            sub = srt.Subtitle(None, start_time, end_time, body)
+
+            if not current_sub:
+                current_sub = sub
+                continue
+
+            # if it's duplicate content then add 1 second to current sub
+            if current_sub.content == body:
+                current_sub.end = current_sub.end + datetime.timedelta(milliseconds=1000)
+            else:
+                subtitles.append(current_sub)
+                print(current_sub.to_srt())
+                current_sub = sub
+
+        else:
+            if current_sub:
+                subtitles.append(current_sub)
+                print(current_sub.to_srt())
+                current_sub = None
+
     return subtitles
 
 json_input = sys.argv[1]
