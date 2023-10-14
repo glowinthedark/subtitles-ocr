@@ -6,7 +6,7 @@
 The workflow sequence:
 
 1. Generate cropped video (need to adjust crop area for your video size)
-2. Generate PNG snapshots (`fps=4` is used)
+2. Generate PNG snapshots (using `ffmpeg ... fps=1` — 1 snapshot per second)
 3. Optical Character Recognition using macOCR (Apple Silicon only) outputs JSON file.
 4. Convert JSON to SRT + normalize and deduplicate using https://github.com/cdown/srt.
 5. Generate Chinese pinyin and traditional/simplified versions.
