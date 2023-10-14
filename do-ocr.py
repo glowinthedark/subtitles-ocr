@@ -18,24 +18,28 @@ def ocr_file(image):
         lock.acquire()
         # check if the file name is already in the dictionary, and skip it if so
         if bucket_key in ocr_dict:
+            lock.release()
             return
+
         lock.release()
 
         # run the ocr command on the file, and capture the output from stdout
-        # !! mac m1/m2 only: use the version from https://github.com/glowinthedark/macOCR/releases
+        # !! mac m1/m2 only: use the version from https://github.com/glowinthedark/macOCR/releases or the OCR binary in this repo
         proc = subprocess.run(["/usr/local/bin/OCR", "zh", "false", "false", image.absolute()],
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE)
 
         recognized_text = proc.stdout.decode()
-        print(bucket_key, recognized_text)
-        ocr_dict[bucket_key] = recognized_text
         err = proc.stderr.decode()
 
         if err:
             print("😱", err)
         else:
             lock.acquire()
+            
+            print(bucket_key, recognized_text)
+            ocr_dict[bucket_key] = recognized_text
+            
             with open(results_file, "w") as f:
                 json.dump(ocr_dict, f, ensure_ascii=False, indent=1)
     finally:
@@ -54,8 +58,8 @@ if __name__ == '__main__':
     else:
         ocr_dict = {}
 
-    ##### TODO: adjust the threadpool size to your liking depending on your system capacity
-    with ThreadPoolExecutor(max_workers=50) as executor:
+    ##### TODO: tweak the threadpool size to your liking depending on available system resources
+    with ThreadPoolExecutor(max_workers=20) as executor:
         img: Path
         for img in Path(folder_name).glob("*.png"):
             executor.submit(ocr_file, img)
