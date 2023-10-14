@@ -15,4 +15,4 @@ The workflow sequence:
 
 # NOTE
 
-- this is work in progress and not suitable for usage as-is; you'll need to adapt to your specific scenario
+- this collection of scripts is work in progress and you'll need to adapt them to your specific scenario (the corresponding places that need editing are marked with TODO comments in the code); use this at your own risk
