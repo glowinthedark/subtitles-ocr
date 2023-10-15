@@ -67,6 +67,7 @@ case ${answer:0:1} in
     ;;
 esac
 
+# TODO: install required DEPENDENCIES with `pip install -U srt opencc pypinyin hanzidentifier` 
 read -p "Generate pinyin SRT (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
@@ -77,6 +78,7 @@ case ${answer:0:1} in
     ;;
 esac
 
+# TODO: get your free/paid API key at https://www.deepl.com/docs-api/api-access
 read -p "Deepl translate zh:en $1.ocr.srt (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
