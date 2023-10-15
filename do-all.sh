@@ -20,7 +20,7 @@ esac
 
 # STEP 2: extract key frames to png images with detection threshold
 
-# EVERY 0.5 seconds the counter represents seconds * 2
+# generate 1 snapshot per second
 read -p "Generate snapshots (y/n)?.." answer
 case ${answer:0:1} in
     y|Y )
