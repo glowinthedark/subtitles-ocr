@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-# SEE: https://www.deepl.com/docs-api/translate-text/translate-text/
+# ***TODO***: get your API key at https://www.deepl.com/docs-api/api-access
+# ALDO SEE: https://www.deepl.com/docs-api/translate-text/translate-text/
 
 import argparse
 import re
@@ -35,7 +36,7 @@ def mark_untranslatable_lines(lines: List, source_lang: str, target_lang: str):
 
 def generate_chunks(_lines, chunk_size=20, src_lang=None, trg_lang=None):
     lines = mark_untranslatable_lines(_lines, src_lang, trg_lang)
-    # lines = input_text.split('.')
+
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lines), chunk_size):
         yield lines[i:i + chunk_size]
