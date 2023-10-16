@@ -15,4 +15,4 @@ The workflow sequence run by the [do-all.sh](do-all.sh) script:
 
 # NOTE
 
-- this collection of scripts is work in progress and will require tweaking for each specific scenario (the corresponding places that need editing are marked with TODO comments in the code); use this at your own risk
+- this collection of scripts is work in progress and will require tweaking for each specific scenario (the corresponding places that need editing are marked with TODO comments in the code); use at your own risk
