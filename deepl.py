@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # ***TODO***: get your API key at https://www.deepl.com/docs-api/api-access
-# ALDO SEE: https://www.deepl.com/docs-api/translate-text/translate-text/
+# ALSO SEE: https://www.deepl.com/docs-api/translate-text/translate-text/
 
 import argparse
 import re
