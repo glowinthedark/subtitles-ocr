@@ -27,9 +27,7 @@ case ${answer:0:1} in
         rm -rfv "$1_img"
         mkdir -p "$1_img"
         ffmpeg -i "$1_video-cropped.mp4" -start_number 1 -vf "fps=1" -q:v 2 "$1_img/snap_%04d.png"
-# PREV        ffmpeg -i "$1_video-cropped.mp4" -vf "fps=4" -q:v 2 "$1_img/snap_%d.png"
-    ;;
-    * )
+    ;;    * )
         echo Skipping...
     ;;
 esac
